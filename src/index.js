@@ -60,7 +60,7 @@ const game = {
         this.panelSprites_.forEach((s, id) => {
             s.interactive = true;
             s.buttonMode = true;
-            s.on('click', () => this.movePanel(this.panelPos_, id));
+            s.on('pointerdown', () => this.movePanel(this.panelPos_, id));
         });
     },
     // create list of sprites from video texture
