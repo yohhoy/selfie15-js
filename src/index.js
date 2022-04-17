@@ -40,6 +40,8 @@ const game = {
         }).catch(e => console.log(e));
         video.addEventListener('canplay', () => {
             this.initGame(10);
+            this.resize();
+            window.onresize = () => game.resize();
             video.hidden = true;
         });
     },
@@ -84,7 +86,6 @@ const game = {
     },
     // lauout panel sprite according to position list
     layoutPanels: function (posList, hole) {
-        console.log(`layoutPanels: ${posList}`);
         this.panelSprites_.forEach((s, i) => {
             const idx = posList.indexOf(i);
             s.position.x = idx2x(idx) * this.panelSize_;
@@ -117,7 +118,7 @@ const game = {
         return posList;
     },
     // move panel to hole (when we can)
-    movePanel: function(posList, id) {
+    movePanel: function (posList, id) {
         const currIdx = posList.indexOf(id);
         const holeIdx = posList.indexOf(HOLE_ID);
         const neighborH = Math.abs(currIdx - holeIdx) == 1 && idx2y(currIdx) == idx2y(holeIdx);
@@ -126,6 +127,13 @@ const game = {
             [posList[holeIdx], posList[currIdx]] = [posList[currIdx], posList[holeIdx]];
             this.layoutPanels(posList, true);
         }
+    },
+    // resize view size
+    resize: function () {
+        const innerSize = Math.min(window.innerWidth, window.innerHeight);
+        const size = Math.min(innerSize, this.app_.renderer.width * 2);
+        this.app_.renderer.view.style.width = size + 'px';
+        this.app_.renderer.view.style.height = size + 'px';
     },
 };
 

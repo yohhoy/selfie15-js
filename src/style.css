@@ -2,8 +2,12 @@ body {
     background: lightgray;
 }
 
+h1 {
+    margin: 0.2em auto;
+}
+
 .main {
-    width: 80%;
+    max-width: 100%;
     margin: 0 auto;
     text-align: center;
 }
